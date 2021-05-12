@@ -2,7 +2,6 @@ package com.anthony.itunessearch.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -38,9 +37,10 @@ class MainActivity : AppCompatActivity(), Callback<SearchResultModel?> {
      * Initializing the views and accompanying components.
      */
     private fun init() {
+        //initialize the Retrofit client
         searchService = RetrofitBuilder.getRetrofit().create(SearchService::class.java)
 
-        // User query observer for RxJava
+        // User query observer for RxJava, allows us to use as a search bar
         queryObservable = PublishSubject.create()
         queryObservable?.debounce(SEARCH_TIMEOUT_MILLI.toLong(), TimeUnit.MILLISECONDS)
                 ?.subscribeOn(Schedulers.io())
@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity(), Callback<SearchResultModel?> {
                     override fun onNext(s: CharSequence) {
                         if (s.isNotEmpty()) {
                             main_progress_bar.visibility = View.VISIBLE
+                            //when there is a pause in searching, fire here to make service call
                             searchService?.getSearchResults(s, SearchService.ENTITY_TYPE_MUSIC_TRACK)
                                     ?.enqueue(this@MainActivity)
                         }
@@ -60,6 +61,7 @@ class MainActivity : AppCompatActivity(), Callback<SearchResultModel?> {
                         Timber.e(e)
                     }
                 })
+
         main_search_edit_text.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun afterTextChanged(s: Editable) {}
@@ -69,6 +71,7 @@ class MainActivity : AppCompatActivity(), Callback<SearchResultModel?> {
         })
     }
 
+    //onResponse handles the callback from the Retrofit client
     override fun onResponse(call: Call<SearchResultModel?>, response: Response<SearchResultModel?>) {
         main_progress_bar.visibility = View.GONE
         if (response.isSuccessful && response.body() != null) {
@@ -78,11 +81,11 @@ class MainActivity : AppCompatActivity(), Callback<SearchResultModel?> {
                 if (resultModelList.isNotEmpty()) {
                             main_help_text.visibility = View.VISIBLE
                             (resultModelList.indices).forEach{
-                                output.append(resultModelList[it].artistName.toString() + "\n")
+                                output.append(resultModelList[it].trackName.toString() + "\n")
                             }
                             main_help_text.text = output.toString()
                 } else {
-                    main_help_text.visibility = View.VISIBLE
+                    main_help_text.text = "No Results"
                 }
             }
         }
