@@ -1,13 +1,10 @@
-package com.sasiddiqui.itunessearch.network.api
+package com.anthony.itunessearch.network.api
 
-import com.sasiddiqui.itunessearch.network.model.SearchResultModel
+import com.anthony.itunessearch.network.model.SearchResultModel
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-/**
- * Created by shahrukhamd on 04/06/18.
- */
 interface SearchService {
     @GET("search")
     fun getSearchResults(

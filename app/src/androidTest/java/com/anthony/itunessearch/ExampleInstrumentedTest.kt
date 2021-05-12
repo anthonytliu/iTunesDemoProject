@@ -1,4 +1,4 @@
-package com.sasiddiqui.itunessearch
+package com.anthony.itunessearch
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

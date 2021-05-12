@@ -1,4 +1,4 @@
-package com.sasiddiqui.itunessearch.activity
+package com.anthony.itunessearch.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -8,10 +8,9 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import com.sasiddiqui.itunessearch.R
-import com.sasiddiqui.itunessearch.network.api.SearchService
-import com.sasiddiqui.itunessearch.network.model.ResultModel
-import com.sasiddiqui.itunessearch.network.model.SearchResultModel
-import com.sasiddiqui.itunessearch.network.utils.RetrofitBuilder
+import com.anthony.itunessearch.network.api.SearchService
+import com.anthony.itunessearch.network.model.SearchResultModel
+import com.anthony.itunessearch.network.utils.RetrofitBuilder
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -94,9 +93,6 @@ class MainActivity : AppCompatActivity(), Callback<SearchResultModel?> {
         showError(R.string.message_network_error)
     }
 
-    /**
-     * Show appropriate error message to user.
-     */
     private fun showError(error: Int) {
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
     }

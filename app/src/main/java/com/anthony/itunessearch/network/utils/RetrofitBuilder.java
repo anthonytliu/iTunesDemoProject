@@ -1,4 +1,4 @@
-package com.sasiddiqui.itunessearch.network.utils;
+package com.anthony.itunessearch.network.utils;
 
 import com.sasiddiqui.itunessearch.BuildConfig;
 
@@ -6,8 +6,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static com.sasiddiqui.itunessearch.network.utils.APIContant.BASE_URL;
 
 /**
  * Created by shahrukhamd on 04/06/18.
@@ -20,7 +18,7 @@ public class RetrofitBuilder {
     public static Retrofit getRetrofit() {
 
         return new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(APIConstant.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(getLogInterceptorClient())
                 .build();

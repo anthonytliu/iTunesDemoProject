@@ -1,6 +1,8 @@
-package com.sasiddiqui.itunessearch;
+package com.anthony.itunessearch;
 
 import android.app.Application;
+
+import com.sasiddiqui.itunessearch.BuildConfig;
 
 import timber.log.Timber;
 
